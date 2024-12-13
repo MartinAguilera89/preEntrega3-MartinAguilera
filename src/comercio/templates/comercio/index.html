@@ -1,0 +1,14 @@
+{% extends 'comercio/base.html' %}
+
+{% block contenido %}
+<main>
+    <h1>BIENVENIDO A MI LOCAL</h1>
+    <header>
+        <nav>
+            <a href="{% url 'crear_cliente' %}"><button> Crear Cliente</button></a>
+            <a href="{% url 'crear_producto' %}"><button>Crear Producto</button></a>
+            <a href="{% url 'crear_carrito' %}"><button>Crear Carrito</button></a>
+        </nav>
+    </header>
+</main>
+{% endblock contenido %}

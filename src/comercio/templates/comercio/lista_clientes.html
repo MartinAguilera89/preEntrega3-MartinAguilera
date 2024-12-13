@@ -1,0 +1,35 @@
+{% extends 'comercio/base.html' %}
+
+{% block contenido %}
+<h1>Lista de Clientes</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Email</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for cliente in clientes %}
+        <tr>
+            <td>{{ cliente.id }}</td>
+            <td>{{ cliente.nombre }}</td>
+            <td>{{ cliente.email }}</td>
+            <td>
+                <!-- Aquí podrías agregar enlaces para editar, eliminar, etc. -->
+                <a href="{% url 'editar_cliente' cliente.id %}">Editar</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- Botón para volver al inicio -->
+<a href="{% url 'comercio' %}">
+    <button type="button">Volver al inicio</button>
+</a>
+
+{% endblock contenido %}

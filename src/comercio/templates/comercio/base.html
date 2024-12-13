@@ -1,0 +1,76 @@
+<!DOCTYPE html> 
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Comercio</title>
+    <!-- Fuentes personalizadas -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&family=Quicksand:wght@400;500&display=swap">
+    <!-- Normalizar estilos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
+    <!-- Milligram para un diseño básico -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.css">
+
+    <!-- Estilos personalizados -->
+    <style>
+        body {
+            max-width: 750px; /* Limita el ancho máximo del contenedor */
+            width: 100%; /* Ocupa todo el ancho disponible, hasta el max-width */
+            margin: 0 auto; /* Centra el contenedor horizontalmente */
+            padding: 20px; /* Espaciado dentro del contenedor */
+            font-family: 'Open Sans', sans-serif;
+            font-size: 16px;
+            line-height: 1.6;
+            color: #161616; /* Color base de texto */
+            background-color: #fafafa; /* Color de fondo */
+        }
+
+        h1, h2, h3 {
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 600; /* Títulos más destacados */
+            color: #2e3d49; /* Color para los títulos */
+        }
+
+        a {
+            color: #007bff; /* Color para enlaces */
+            text-decoration: none; /* Quita subrayado */
+        }
+
+        a:hover {
+            color: #0056b3; /* Color más oscuro al pasar el ratón */
+        }
+
+        button {
+            background-color: #4CAF50; /* Verde brillante para botones */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            text-align: center; /* Centra el texto dentro del botón */
+            display: inline-block; 
+        }
+
+        button:hover {
+            background-color: #45a049; /* Verde más oscuro al hacer hover */
+        }
+
+        .card {
+            background-color: white;
+            border-bottom: #2e3d49;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 5px;
+            margin: 5px auto; /* Centra la tarjeta horizontalmente */
+            max-width: 10px; /* Limita el ancho máximo de la tarjeta */
+            width: 10%;
+        }
+    </style>
+</head>
+<body style="text-align: center;">
+    {% block contenido %}
+    {% endblock contenido %}
+</body>
+</html>

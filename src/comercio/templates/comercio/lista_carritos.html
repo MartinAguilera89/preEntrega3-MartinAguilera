@@ -1,0 +1,38 @@
+{% extends 'comercio/base.html' %}
+
+{% block contenido %}
+<h1>Lista de Carritos</h1>
+
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Cliente</th>
+            <th>Productos</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for carrito in carritos %}
+        <tr>
+            <td>{{ carrito.id }}</td>
+            <td>{{ carrito.cliente.nombre }}</td>
+            <td>
+                {% for item in carrito.productos.all %}
+                    {{ item.nombre }} (x{{ item.carritoproducto_set.filter(carrito=carrito).first().cantidad }})<br>
+                {% endfor %}
+            </td>
+            <td>
+                <a href="{% url 'ver_carrito' carrito.id %}">Ver</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<!-- Botón para volver al inicio -->
+<a href="{% url 'comercio' %}">
+    <button type="button">Volver al inicio</button>
+</a>
+
+{% endblock contenido %}

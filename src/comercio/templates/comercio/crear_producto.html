@@ -1,0 +1,14 @@
+{% extends 'comercio/base.html' %}
+
+{% block contenido %}
+<h1>Crear Producto</h1>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}  <!-- Muestra el formulario de producto -->
+    <button type="submit">Guardar Producto</button>
+</form>
+<!-- Botón para volver al inicio -->
+<a href="{% url 'comercio' %}">
+    <button type="button">Volver al inicio</button>
+</a>
+{% endblock contenido %}
