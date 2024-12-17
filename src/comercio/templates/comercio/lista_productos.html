@@ -1,16 +1,19 @@
 {% extends 'comercio/base.html' %}
 
+{% load static %}
+
 {% block contenido %}
 <h1>Lista de Productos</h1>
+<img src="{% static 'comercio/img/ropa.jpg' %}" alt="" height="300px">
 
 <table>
     <thead>
         <tr>
             <th>ID</th>
             <th>Nombre</th>
+            <th>Descripción</th>
             <th>Precio</th>
             <th>Stock</th>
-            <th>Acciones</th>
         </tr>
     </thead>
     <tbody>
@@ -18,19 +21,14 @@
         <tr>
             <td>{{ producto.id }}</td>
             <td>{{ producto.nombre }}</td>
-            <td>${{ producto.precio }}</td>
+            <td>{{ producto.descripcion }}</td>
+            <td>{{ producto.precio }}</td>
             <td>{{ producto.stock }}</td>
-            <td>
-                <a href="{% url 'editar_producto' producto.id %}">Editar</a>
-            </td>
         </tr>
         {% endfor %}
     </tbody>
 </table>
 
-<!-- Botón para volver al inicio -->
-<a href="{% url 'comercio' %}">
-    <button type="button">Volver al inicio</button>
-</a>
-
+<a href="{% url 'comercio' %}"><button type="button">Volver al inicio</button></a>
+<a href="{% url 'crear_producto' %}"><button>Crear Producto</button></a>
 {% endblock contenido %}

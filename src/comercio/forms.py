@@ -21,3 +21,4 @@ class CarritoProductoForm(forms.ModelForm):
     class Meta:
         model = CarritoProducto
         fields = ['producto', 'cantidad']
+

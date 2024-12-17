@@ -2,28 +2,23 @@
 
 {% block contenido %}
 <h1>Crear Carrito</h1>
-
+{% if error %}
+<p style="color: red;">{{ error }}</p>
+{% endif %}
 <form method="post">
     {% csrf_token %}
-    
-    <!-- Formulario del carrito -->
     <h2>Seleccionar Cliente</h2>
     {{ carrito_form.as_p }}
-    
-    <!-- Formulario para agregar productos y cantidades al carrito -->
     <h2>Agregar Productos al Carrito</h2>
     {% for form in producto_forms %}
         <div>
             {{ form.as_p }}
         </div>
     {% endfor %}
-
     <button type="submit">Guardar Carrito</button>
 </form>
 
-<!-- Botón para volver al inicio -->
 <a href="{% url 'comercio' %}">
     <button type="button">Volver al inicio</button>
 </a>
-
 {% endblock contenido %}

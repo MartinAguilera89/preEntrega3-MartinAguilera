@@ -28,41 +28,58 @@ def crear_producto(request):
 def crear_carrito(request):
     if request.method == 'POST':
         carrito_form = CarritoForm(request.POST)
-        producto_forms = [CarritoProductoForm(request.POST, prefix=str(i)) for i in range(len(request.POST.getlist('producto')))]  # Generamos un formulario para cada producto
 
-        if carrito_form.is_valid() and all(form.is_valid() for form in producto_forms):
-            # Guardamos el carrito
+        productos_ids = request.POST.getlist('producto')
+        cantidades = request.POST.getlist('cantidad')
+
+        producto_forms = []
+        for i in range(len(productos_ids)):
+            data = {
+                'producto': productos_ids[i],
+                'cantidad': cantidades[i]
+            }
+            form = CarritoProductoForm(data, prefix=str(i))
+            producto_forms.append(form)
+
+        if carrito_form.is_valid() and all([form.is_valid() for form in producto_forms]):
             carrito = carrito_form.save()
 
-            # Guardamos los productos en el carrito
             for form in producto_forms:
-                carrito_producto = form.save(commit=False)
-                carrito_producto.carrito = carrito
-                carrito_producto.save()
+                producto = form.cleaned_data['producto']
+                cantidad = form.cleaned_data['cantidad']
 
-            return redirect('comercio')  # Redirige a la página principal después de guardar
+                if producto.stock >= cantidad:
+                    CarritoProducto.objects.create(carrito=carrito, producto=producto, cantidad=cantidad)
+                    producto.stock -= cantidad
+                    producto.save()
+                else:
+                    return render(request, 'comercio/crear_carrito.html', {
+                        'carrito_form': carrito_form,
+                        'producto_forms': producto_forms,
+                        'error': f"No hay suficiente stock para {producto.nombre}."
+                    })
+                
+            return redirect('lista_carritos')
     else:
         carrito_form = CarritoForm()
-        producto_forms = [CarritoProductoForm(prefix=str(i)) for i in range(5)]  # Creando 5 formularios como ejemplo
+        producto_forms = [CarritoProductoForm(prefix=str(i)) for i in range(2)]
 
     return render(request, 'comercio/crear_carrito.html', {
         'carrito_form': carrito_form,
         'producto_forms': producto_forms,
-        'productos': Producto.objects.all(),  # Para mostrar la lista de productos disponibles
     })
 
-# Vista para listar todos los clientes
 def lista_clientes(request):
-    clientes = Cliente.objects.all()  # Trae todos los clientes
+    clientes = Cliente.objects.all()
     return render(request, 'comercio/lista_clientes.html', {'clientes': clientes})
 
-# Vista para listar todos los productos
 def lista_productos(request):
-    productos = Producto.objects.all()  # Trae todos los productos
+    productos = Producto.objects.all()
     return render(request, 'comercio/lista_productos.html', {'productos': productos})
 
-# Vista para listar todos los carritos
 def lista_carritos(request):
-    carritos = Carrito.objects.all()  # Trae todos los carritos
-    return render(request, 'comercio/lista_carritos.html', {'carritos': carritos})
-
+    carritos = Carrito.objects.prefetch_related('productos')
+    context = {
+        'carritos': carritos,
+    }
+    return render(request, 'comercio/lista_carritos.html', context)

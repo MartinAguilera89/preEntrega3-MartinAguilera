@@ -17,7 +17,7 @@
 
 ## Aspectos técnicos
 
-He usado Django: He creado 3 modelos en la aplicación Comercio, con 3 formularios para crear Clientes, Productos y Carritos
+He usado Django: He creado 4 modelos en la aplicación Comercio, con 3 formularios para crear Clientes, Productos y Carritos. Asi mismo cree la vista de la lista de clientes, productos y carritos creados.
 
 ## Puntos a mejorar
 

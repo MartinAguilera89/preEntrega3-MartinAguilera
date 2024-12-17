@@ -5,9 +5,12 @@
     <h1>BIENVENIDO A MI LOCAL</h1>
     <header>
         <nav>
-            <a href="{% url 'crear_cliente' %}"><button> Crear Cliente</button></a>
+            <a href="{% url 'crear_cliente' %}"><button>Crear Cliente</button></a>
             <a href="{% url 'crear_producto' %}"><button>Crear Producto</button></a>
             <a href="{% url 'crear_carrito' %}"><button>Crear Carrito</button></a>
+            <a href="{% url 'lista_clientes' %}"><button>Ver Clientes</button></a>
+            <a href="{% url 'lista_productos' %}"><button>Ver Productos</button></a>
+            <a href="{% url 'lista_carritos' %}"><button>Ver Carritos</button></a>
         </nav>
     </header>
 </main>

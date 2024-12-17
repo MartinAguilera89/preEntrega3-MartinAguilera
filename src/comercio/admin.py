@@ -12,4 +12,11 @@ class ProductoAdmin(admin.ModelAdmin):
 
 @admin.register(Carrito)
 class CarritoAdmin(admin.ModelAdmin):
-    list_display = ('cliente', 'fecha_creacion')
+    list_display = ('cliente', 'fecha_creacion', 'productos_relacionados')
+    
+    def productos_relacionados(self, obj):
+        return ", ".join(
+            [f"{relacion.producto.nombre} (x{relacion.cantidad})" for relacion in obj.carritoproducto_set.all()]
+        )
+    productos_relacionados.short_description = "Productos"
+

@@ -25,6 +25,12 @@ class Carrito(models.Model):
     def __str__(self):
         return f"Carrito de {self.cliente.nombre} - {self.fecha_creacion.strftime('%Y-%m-%d')}"
 
+    def obtener_productos(self):
+        return [
+            f"{relacion.producto.nombre} (Cantidad: {relacion.cantidad})"
+            for relacion in self.carritoproducto_set.all()
+        ]
+
 class CarritoProducto(models.Model):
     carrito = models.ForeignKey(Carrito, on_delete=models.CASCADE)
     producto = models.ForeignKey(Producto, on_delete=models.CASCADE)
